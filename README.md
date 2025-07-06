@@ -1,69 +1,57 @@
-# React + TypeScript + Vite
+# 📚 Minimal Library Management System (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean and minimal **Library Management System** frontend built with **React**, **TypeScript**, **Redux Toolkit Query (RTK Query)**, and **Tailwind CSS**.  
+This project connects to a RESTful API backend to manage books and borrow records — focusing on core functionality without authentication, category filters, or payment integration.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+✅ **Book Management**
+- View all books in a tabular format  
+- Add new books  
+- Edit or delete existing books  
+- Borrow books with validation (due date & quantity)  
+- Auto mark books as unavailable when copies reach 0  
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+✅ **Borrowing System**
+- Borrow form with validation
+- Quantity must not exceed available copies
+- Updates backend and UI immediately
+- Redirects to borrow summary
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+✅ **Borrow Summary**
+- Aggregated report of borrowed books
+- Displays book title, ISBN, and total quantity borrowed
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+✅ **Responsive UI**
+- Minimalist, clean, and responsive layout using Tailwind CSS
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+✅ **Toast Notifications**
+- Real-time feedback on actions like create, update, delete, and borrow
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧱 Tech Stack
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Layer            | Technology                            |
+|------------------|----------------------------------------|
+| Frontend         | React + TypeScript                     |
+| State Management | Redux Toolkit + RTK Query              |
+| Styling          | Tailwind CSS                           |
+| Backend API      | Node.js + Express.js                   |
+| Database         | MongoDB + Mongoose                     |
+
+---
+
+## 🚦 Pages & Routes
+
+| Route               | Description                        |
+|---------------------|------------------------------------|
+| `/books`            | Show all books                     |
+| `/create-book`      | Add a new book                     |
+| `/books/:id`        | Book details page                  |
+| `/edit-book/:id`    | Edit a book                        |
+| `/borrow/:bookId`   | Borrow book form                   |
+| `/borrow-summary`   | Aggregated borrow summary          |
+

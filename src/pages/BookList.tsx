@@ -1,30 +1,29 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
 import {
   useDeleteBookMutation,
   useGetBooksQuery,
-} from '../features/books/bookApi'
-import { toast } from 'react-toastify'
-import type { IBook } from '@/features/books/book.types'
+} from "../features/books/bookApi";
+import { toast } from "react-toastify";
+import type { IBook } from "@/features/books/book.types";
 
 const BookList = () => {
-  const { data, isLoading } = useGetBooksQuery()
-  const [deleteBook] = useDeleteBookMutation()
-  const navigate = useNavigate()
-  console.log(data)
-  
+  const { data, isLoading } = useGetBooksQuery();
+  const [deleteBook] = useDeleteBookMutation();
+  const navigate = useNavigate();
+  console.log(data);
 
   const handleDelete = async (id: string) => {
-    if (confirm('Are you sure you want to delete this book?')) {
+    if (confirm("Are you sure you want to delete this book?")) {
       try {
-        await deleteBook(id).unwrap()
-        toast.success('Book deleted successfully')
+        await deleteBook(id).unwrap();
+        toast.success("Book deleted successfully");
       } catch {
-        toast.error('Failed to delete book')
+        toast.error("Failed to delete book");
       }
     }
-  }
+  };
 
-  if (isLoading) return <p>Loading books...</p>
+  if (isLoading) return <p>Loading books...</p>;
 
   return (
     <div>
@@ -45,7 +44,14 @@ const BookList = () => {
           <tbody>
             {data?.map((book: IBook) => (
               <tr key={book._id} className="border-t">
-                <td className="p-2">{book.title}</td>
+                <td className="p-2">
+                  <Link
+                    to={`/books/${book._id}`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    {book.title}
+                  </Link>
+                </td>
                 <td className="p-2">{book.author}</td>
                 <td className="p-2">{book.genre}</td>
                 <td className="p-2">{book.isbn}</td>
@@ -83,7 +89,7 @@ const BookList = () => {
         </table>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BookList
+export default BookList;
