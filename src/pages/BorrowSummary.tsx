@@ -1,14 +1,35 @@
 import { useGetBorrowSummaryQuery } from "@/features/borrow/borrowApi";
 
+// ✅ Step 1: Define interfaces
+interface BorrowSummaryItem {
+  book: {
+    _id: string;
+    title: string;
+    isbn: string;
+  };
+  totalQuantity: number;
+  dueDate: string;
+}
+
+interface IBorrowSummaryResponse {
+  success: boolean;
+  message: string;
+  data: BorrowSummaryItem[];
+}
+
+// ✅ Step 2: Component with type-safe response handling
 const BorrowSummary = () => {
   const {
     data: response,
     isLoading,
     isError,
-  } = useGetBorrowSummaryQuery();
+  } = useGetBorrowSummaryQuery() as {
+    data?: IBorrowSummaryResponse;
+    isLoading: boolean;
+    isError: boolean;
+  };
 
-  // Extract the actual data array
-  const borrowSummary = response?.data ?? [];
+  const borrowSummary: BorrowSummaryItem[] = response?.data ?? [];
 
   if (isLoading)
     return <p className="text-center mt-4">Loading summary...</p>;
@@ -32,7 +53,7 @@ const BorrowSummary = () => {
                 <th className="p-3 text-left">📖 Title</th>
                 <th className="p-3 text-left">📚 ISBN</th>
                 <th className="p-3 text-left">📦 Total Borrowed</th>
-                <th className="p-3 text-left">📦 Due Date</th>
+                <th className="p-3 text-left">📅 Due Date</th>
               </tr>
             </thead>
             <tbody>
@@ -44,7 +65,7 @@ const BorrowSummary = () => {
                   <td className="p-3">{item.book.title}</td>
                   <td className="p-3">{item.book.isbn}</td>
                   <td className="p-3">{item.totalQuantity}</td>
-                  <td className="p-3">{item.book.dueDate}</td>
+                  <td className="p-3">{item.dueDate}</td>
                 </tr>
               ))}
             </tbody>
